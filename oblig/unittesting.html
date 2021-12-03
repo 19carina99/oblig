@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.17.2.css">
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.17.2.js"></script>
+  <script src="view.js"></script>
+</body>
+
+<script>
+  function updateView(){}
+
+  var points;
+  var pointsPerClick;
+
+  QUnit.module('doClick', function() {
+    QUnit.test('how many points', function(assert) {
+      points = 0;
+      pointsPerClick = 1;
+      doClick();
+      var actual = points;
+      var expected = 1;
+      assert.equal(actual, expected);
+    });
+  });
+
+  QUnit.module('buyUpgrade', function() {
+  QUnit.test('buy upgrade', function(assert) {
+      points = -10;
+      pointsPerClick = 12;
+      doClick();
+      var actual = points;
+      var expected = 2;
+      assert.equal(actual, expected);
+    });
+  });
+</script>

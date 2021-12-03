@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  div{
+    font-size: 100px;
+    user-select: none;
+  }
+</style>
+<body>
+  <div id="emoji"></div>
+
+  <script>
+  //model
+  var points = 0;
+  var pointsPerClick = 1;
+  var smileyIndex = 0;
+  var cheat = '';
+  
+  //view
+  function doClick(){
+      points += pointsPerClick;
+      smileyIndex = getNextSmileyIndex(smileyIndex);
+      updateView();
+  }
+  
+  function buyUpgrade(){
+      if (points < 10) return;
+      points -= 10;
+      pointsPerClick++;
+      updateView();
+  }
+
+  function jukse(){
+    if (points < 100) return;
+    points -= 100;
+    pointsPerClick *= 5;
+    cheat++;
+    updateView();
+  }
+
+  function minusPoints(){
+    if(pointsPerClick < 0) return;
+    points = 0;
+    pointsPerClick = 1;
+    cheat = 0;
+    updateView();
+  }
+
+  function megaJuks(){
+    points += 1000;
+
+    updateView();
+  }
+  
+  //controller
+  updateView();
+  function updateView(){
+      var smiley = getSmiley(smileyIndex);
+      document.getElementById('emoji').innerHTML = `
+      <div id="image" onclick="doClick()">${smiley}</div>
+      <div id="pointsInfo">${points}</div>
+      <button onclick="buyUpgrade()"> Kjøp Oppdatering (10 poeng)</button>
+      <button onclick="jukse()"> Om du vil jukse :P (100 poeng)</button>
+      <p> hvor mange ganger jukset: ${cheat}</p>
+      <button onclick="minusPoints()"> Restart? </button>
+      <button onclick="megaJuks()"> MegaJuks! </button>
+      `;
+  }
+
+  function getSmiley(smileyIndex) {
+    if (smileyIndex == 0) return '🐵';
+    if (smileyIndex == 1) return '🙈';
+    if (smileyIndex == 2) return '🙉';
+    if (smileyIndex == 3) return '🙊';
+    if (smileyIndex == 4) return '🐒';
+    return '';
+  } 
+  function getNextSmileyIndex(smileyIndex) {
+    const maxSmileyIndex = 4;
+    smileyIndex++;
+    if (smileyIndex > maxSmileyIndex){
+      smileyIndex = 0;
+    }
+    return smileyIndex;
+  }
+    
+</script>
+</body>
+</html>
